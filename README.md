@@ -1,0 +1,2 @@
+# upstox-ready-algo
+trade
