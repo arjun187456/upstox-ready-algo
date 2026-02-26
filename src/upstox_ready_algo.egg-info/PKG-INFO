@@ -1,3 +1,12 @@
+Metadata-Version: 2.4
+Name: upstox-ready-algo
+Version: 0.1.0
+Summary: Upstox-ready algo bot with paper trading and live mode
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: upstox-python-sdk>=2.19.0
+Requires-Dist: python-dotenv>=1.0.1
+
 # Upstox Ready Algo
 
 Ready-made Python algo bot for:

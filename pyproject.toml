@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "upstox-ready-algo"
+version = "0.1.0"
+description = "Upstox-ready algo bot with paper trading and live mode"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "upstox-python-sdk>=2.19.0",
+  "python-dotenv>=1.0.1"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
