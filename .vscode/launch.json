@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Paper Trading (simulated)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "upstox_ready_algo.cli",
+      "args": ["--mode", "paper", "--data-source", "simulated", "--iterations", "300"],
+      "envFile": "${workspaceFolder}/.env",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Paper Trading (Upstox feed)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "upstox_ready_algo.cli",
+      "args": ["--mode", "paper", "--data-source", "upstox", "--iterations", "300"],
+      "envFile": "${workspaceFolder}/.env",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Live Trading",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "upstox_ready_algo.cli",
+      "args": ["--mode", "live", "--data-source", "upstox", "--iterations", "300"],
+      "envFile": "${workspaceFolder}/.env",
+      "console": "integratedTerminal"
+    }
+  ]
+}
