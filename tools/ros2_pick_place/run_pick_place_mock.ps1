@@ -20,7 +20,37 @@ foreach ($path in $requiredPaths) {
     }
 }
 
-$commonPrefix = "`$env:ROS_DOMAIN_ID='$RosDomainId'; `$env:RMW_IMPLEMENTATION='$RmwImplementation'; Set-Location '$RepoRoot';"
+$bridgeLibCandidates = @(
+    (Join-Path $RepoRoot ".venv\Lib\site-packages\isaacsim\exts\isaacsim.ros2.bridge\humble\lib"),
+    (Join-Path $RepoRoot ".venv\Lib\site-packages\isaacsim\extsDeprecated\omni.isaac.ros2_bridge\humble\lib")
+)
+
+$bridgePythonCandidates = @(
+    (Join-Path $RepoRoot ".venv\Lib\site-packages\isaacsim\exts\isaacsim.ros2.bridge\humble\rclpy"),
+    (Join-Path $RepoRoot ".venv\Lib\site-packages\isaacsim\extsDeprecated\omni.isaac.ros2_bridge\humble\rclpy")
+)
+
+$bridgeLib = $null
+foreach ($candidate in $bridgeLibCandidates) {
+    if (Test-Path $candidate) {
+        $bridgeLib = (Resolve-Path $candidate).Path
+        break
+    }
+}
+
+$bridgePython = $null
+foreach ($candidate in $bridgePythonCandidates) {
+    if (Test-Path $candidate) {
+        $bridgePython = (Resolve-Path $candidate).Path
+        break
+    }
+}
+
+if (-not $bridgeLib -or -not $bridgePython) {
+    throw "Isaac Sim ROS2 bridge paths not found under $RepoRoot\.venv. Ensure Isaac Sim is installed in this environment."
+}
+
+$commonPrefix = "`$env:ROS_DOMAIN_ID='$RosDomainId'; `$env:RMW_IMPLEMENTATION='$RmwImplementation'; `$env:ROS_DISTRO='humble'; `$env:PATH='$bridgeLib;' + `$env:PATH; if (`$env:PYTHONPATH) { `$env:PYTHONPATH='$bridgePython;' + `$env:PYTHONPATH } else { `$env:PYTHONPATH='$bridgePython' }; Set-Location '$RepoRoot';"
 
 $commands = @(
     "$commonPrefix & '$PythonExe' '$detectorScript'",
