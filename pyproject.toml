@@ -13,5 +13,8 @@ dependencies = [
   "python-dotenv>=1.0.1"
 ]
 
+[project.scripts]
+upstox-isaac-bridge = "upstox_ready_algo.ros2.isaac_bridge_node:main"
+
 [tool.setuptools.packages.find]
 where = ["src"]

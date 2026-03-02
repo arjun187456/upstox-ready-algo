@@ -85,3 +85,35 @@ Tune in `.env`:
 - No strategy can guarantee profit.
 - Start with small capital and monitor regularly.
 - Keep API keys/tokens in `.env` only.
+
+## 6) Isaac Sim ROS2 bridge (custom project node)
+
+This repo now includes a project-owned ROS2 bridge node (separate from Isaac Sim installed packages).
+
+Location:
+- `src/upstox_ready_algo/ros2/isaac_bridge_node.py`
+
+Run:
+
+```bash
+pip install -e .
+upstox-isaac-bridge
+```
+
+Default topic mapping:
+- `/cmd_vel` -> `/isaac/cmd_vel`
+- `/isaac/joint_states` -> `/joint_states`
+
+Override topics/queue size:
+
+```bash
+upstox-isaac-bridge --ros-args \
+	-p cmd_vel_in:=/robot/cmd_vel \
+	-p cmd_vel_out:=/sim/cmd_vel \
+	-p joint_states_in:=/sim/joint_states \
+	-p joint_states_out:=/robot/joint_states \
+	-p queue_size:=20
+```
+
+Note:
+- You must run this from a ROS2-enabled environment (`rclpy`, `geometry_msgs`, `sensor_msgs` available).
